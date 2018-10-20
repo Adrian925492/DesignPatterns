@@ -11,6 +11,18 @@
 #include <iostream>
 using namespace std;
 
+/*
+ * Udostepnia interfejs do tworzenia rodzin obiektow bez okreslania ich klas konkretnych. Uzywany w sytuacjach, gdy wymagane
+ * jest dostarczneie rodzin powiazanych produktow. Mmy do czynienia z abstrakcyjna fabryka - definiujaca interfejs dla konkretnych
+ * fabryk. Podobnie mamy abstrakcyjne produkty, ktore dostarczaja interfejsu dla rodzin konkretnych produktow. Konkretne abstrakcyjan fabryka
+ * wie, ktore produkty z kazdej rodziny produktow nalezy zozyc/ dostarczyc na ¿¹danie klienta. Klient, za posrednictwem fabryki, dostaje
+ * konkretna implementacje prouktu, ale nie wie ktory konkretny produkt otrzymal. Klient zna tylko abstrakcyjny interfejs dla
+ * rodziny produktow, natomiast sama strikte implementacja jest mu nieznana - ta informacja jest zakapsulkowana w powiazanej
+ * konkretnej fabryce. W celu utworzenia konkretnego produktu, klient wywoluje metode utworz z interfejsy abstrakcyjnego fabryk.
+ * Wymaganejest takze odniesiennie sie do konkretnej fabryki (jej wywolujemy metode "utworz"). Fabryka zwraca produkt, który ma abstrakcyjny
+ * typ odpowiadajacy rodzinie produktów, z któej klient za¿¹da³ produktu. Klient w efekcie ie zna konkretnej implementacji produktu, a jedynie interfejsy
+ *  - fabryki i produktu.
+ */
 
 class AF_AbstractProduct
 {

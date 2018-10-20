@@ -11,6 +11,16 @@
 #include <iostream>
 using namespace std;
 
+/*
+ * Okreœla interfejs do tworzenia obiektów, przy czym umo¿liwia podklasom wyznaczenie klasy danego boiektu. Stosowana, gdy
+ * dana klasa nie zna typu obiektu jaki nale¿y utworzyc. Tworzone produkty maja wspolny interfejs (jakies cechy wspolne - podziedziczone).
+ * Klasa klient nie zna konkretnego typu produkty, zna natomiast wspomniany abstrakcyjny interfejs. Metoda wytworcza to kalsa abstrakcyjan, ktora
+ * dostarcza interfejsu konkretnym wytworcom. To sam wytworca kapsu³ukje informacjê o typie produktu konkretnego (zestawu produktów) jaki
+ * trzeba wytworzyc, natomaist klient musi znac tylko ktowt z konkretnych wytworcow bedzie uzyty. Metoda wytworcza jest jakby
+ * uproszczeniem fabryki abstrakcyjnej. Fabryka abstrakcyjna produkuje zestawy obiektow, antomiast metoda - jeden konkretny obiekt. Fabryka moze
+ * implementowac zbior metod wytworczych.
+ */
+
 class CM_AbstractProduct
 {
 

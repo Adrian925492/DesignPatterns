@@ -10,6 +10,17 @@
 
 #include <iostream>
 
+/*
+ * Oddziela tworzenie obiektu od jego reprezentacji, dziêki czemu mo¿na utworzyc obiekt o roznej (nieznanej) reprezentacji.
+ * Wzorzec stotujemy, gdy mamy skonkretyzowany obiekt jaki chcemy uzyskac, ale sama implementacja obiektu, jego cechy i sposob
+ * dzialania jest nieznany. Przykladem moze byc implementacja klasy do sterowania portem na rozne mikrokontrolery. Niezaleznie
+ * od implementacji, dla kazdej implementacji sterowanie pinem portu sprowadza sie do kilku prostych operacji. Zaleznie jednak
+ * od mikroontrolera, implementacja wykonania tych operacji bedzi inna.
+ *
+ * Dyrektor i Konkretni budowniczy to kalsy konkretne. Konkretni budowniczy maja podziedziczony interfejs, co gwarantuje spojnosc
+ * co do udostepnionych metod (przyklad: zapal; gas pin). Dyrektor przyjmuje konkretnego budowniczego jako argument, a
+ * budowniczy zwraca obiekty konkretnego typu (odpowiadajacego typowi budowniczego) implementujace okreslone metody.
+ */
 
 /* Klasa "Produkt" - definiuje instancjê danego, sparametryzowanego produktu */
 class Product {

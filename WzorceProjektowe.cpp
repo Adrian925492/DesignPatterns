@@ -12,6 +12,7 @@
 #include "Builder/Builder.h"
 #include "AbstractFactory/AbstractFactory.h"
 #include "CreationMethod/CreationMethod.h"
+#include "Prototype/Prototype.h"
 
 
 using namespace std;
@@ -57,6 +58,27 @@ int main() {
 		CM_AbstractProduct* ProductA = Creator1.createProduct();
 		CM_AbstractProduct* ProductB = Creator2.createProduct();		//Nie wiemy jaki konkretnie produkt zostanie utworzony -
 		// Od tego mamy creatory 1,2 (z abstrakcj¹ - musi byc interfejs) zeby wiedzialy!
+		cout << endl << endl;
+
+	/* Prototype */
+		PrototypeProduct1 prototype1;
+		PrototypeProduct2 prototype2;
+
+		AbstractPrototype* prototype_product1 = prototype1.Clone();
+		AbstractPrototype* prototype_product2 = prototype2.Clone();
+
+		/* Wzorzec prototyp - mamy klasy "Prototyp", któe dziedzicz¹ po klasie abstrakcyjnej "AbstractPrototyp".
+		   Dziedzicz¹ - poniewa¿ to narzuca koniecznoœc implementacji operacji "clone()", dziêi której jesteœmy
+		   w stanie utworzyc dowolna liczbe prototypow (znanego typu)
+
+		   Mozemy rozszerzyc wzorzec prototyp o dodanie metody wytwórczej - wtedy konkretne prototypy mo¿emy ukryc
+		   w konkretnych metodach wytworczych, a klient nie musi wiedziec nawet jakiego typu klona dostanie
+
+		   Mozemy takze polaczyc prototyp z fabryka abstrakcyjna - jezeli fabryka abstrakcyjan zawiera konkretne fabryki bedace w istocie
+		   konkretnymi prototypami danych obiektow (fabryka abstrakcyjna ma zestaw prototypow). W zasadzie w implementacji ^
+		   fabryki abstrakcyjnej tak jest, bo konkretne fabryki produkuja w istocie klony konkretnych produktow.
+
+		   */
 
 
 
