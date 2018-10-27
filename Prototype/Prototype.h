@@ -12,6 +12,12 @@
 using namespace std;
 
 /*
+ * Okreœla na bazie prototypu rodzaje produkowanych obiektów poprzez klonowanie prototypu. Klient musi znac typ prototypu,
+ * ale to prototyp musi potrafic sie sklonowac. Prototypy dziedzicza po prototypowej abstrakcji ktora narzuca im interfejs zawierajacy
+ * metode do klonowania.
+ */
+
+/*
  * Prototype - defines interface for concrete prototypes
  */
 class AbstractPrototype

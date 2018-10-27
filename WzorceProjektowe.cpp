@@ -14,6 +14,13 @@
 #include "CreationMethod/CreationMethod.h"
 #include "Prototype/Prototype.h"
 
+#include "Adapter/Adapter.h"
+#include "Decorator/Decorator.h"
+#include "Facade/Facade.h"
+#include "Composite/Composite.h"
+#include "Bridge/Bridge.h"
+#include "Proxy/Proxy.h"
+#include "Flyweight/Flyweight.h"
 
 using namespace std;
 
@@ -79,8 +86,73 @@ int main() {
 		   fabryki abstrakcyjnej tak jest, bo konkretne fabryki produkuja w istocie klony konkretnych produktow.
 
 		   */
+		cout << endl << endl;
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/* Adapter */
+		Adapter_ClassAdapter classAdapter;
+		classAdapter.Target_Method1();
+		classAdapter.Target_Method2();
+
+		Adapter_ObjectAdapter objAdapter(new Adapter_Adaptee);
+		objAdapter.Target_Method1();
+		objAdapter.Target_Method2();
+		cout << endl << endl;
+
+		/* Dekorator */
+		ConcreteComponent component;
+		ConcreteDecorator component_decorated(&component);
+		/* Nieudekorowany komponent */
+		component.baseMethod1();
+		/* Udekorowany komponent */
+		component_decorated.baseMethod1();
+		cout << endl << endl;
+
+		/*Fasada*/
+		Facade facade;
+		facade.FacadeMethod();
+		cout << endl << endl;
+
+		/* Kompozyt */
+		Leaf1 leaf1;
+		Leaf2 leaf2;
+		Leaf2 leaf2out;
+		Composite composite;
+		Composite innerComposite;
+
+		innerComposite.AddComposite(&leaf1);	//Tworzymy kompozyt
+		innerComposite.AddComposite(&leaf2);
+		composite.AddComposite(&leaf2out);
+		composite.AddComposite(&innerComposite);
+
+		composite.method1();
+
+		cout << endl << endl;
 
 
+		/* Most */
+		Bridge_ConcreteImplementation bridge;
+		Bridge_Abstraction bridgeAbs(&bridge);
+		bridgeAbs.method1();
+		bridgeAbs.method2();
+		cout << endl << endl;
+
+		/* Proxy */
+		Proxy_ConcreteObject obj;
+		obj.method1();
+		obj.metho2();
+
+		Proxy_Proxy proxy;		//Proxy zamiast konkretnego boiektu!
+		proxy.method1();
+		proxy.metho2();		//Przes³¹nia metodê 2g¹ - ta ma nie byc wywolywana!!!
+		cout << endl << endl;
+
+
+		/* Flyweight */
+		FlyweightConcrete flyweight;
+		flyweight.method1();
+		flyweight.internalContext = 2;		//Zmieniamy kontext (klient zmiania)
+		flyweight.method1();
+		cout << endl << endl;
 
 	return 0;
 }

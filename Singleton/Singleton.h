@@ -11,7 +11,7 @@
 #include <iostream>
 
 /*
- * Przyk³ad wzorce projektowego - singleton
+ * Przyk³ad wzorce projektowego - singleton - gwarantuje, ¿e tylko jedna instancja zostanie utworzona (danje klasy).
  *
  */
 
