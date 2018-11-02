@@ -7,6 +7,8 @@
 //============================================================================
 
 #include <iostream>
+#include <list>
+#include <vector>
 
 #include "Singleton/Singleton.h"
 #include "Builder/Builder.h"
@@ -21,6 +23,18 @@
 #include "Bridge/Bridge.h"
 #include "Proxy/Proxy.h"
 #include "Flyweight/Flyweight.h"
+
+#include "Interpreter/Interpreter.h"
+#include "Iterator/Iterator.h"
+#include "ChainOfResponsibility/ChainOfResponsibility.h"
+#include "Mediator/Mediator.h"
+#include "TemplateMethod/TemplateMethod.h"
+#include "Observer/Observer.h"
+#include "Visitor/Visitor.h"
+#include "Memento/Memento.h"
+#include "Command/Command.h"
+#include "State/State.h"
+
 
 using namespace std;
 
@@ -152,7 +166,167 @@ int main() {
 		flyweight.method1();
 		flyweight.internalContext = 2;		//Zmieniamy kontext (klient zmiania)
 		flyweight.method1();
+		// Kontekst moze zmianiac klient (to najprostsza implementacja)
 		cout << endl << endl;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		/* Interpreter */
+		Contex contex;		//Tworzymy kontekst (narzucony!)
+		BooleanExpresion* expression;
+		VariableExp* prawda = new VariableExp('T');
+		VariableExp* falsz = new VariableExp('F');
+
+		// Expression (T | F) & T
+
+		expression = new OrExp(
+			new AndExp (prawda, falsz),
+			falsz
+		);
+		bool result = expression->Interpret(contex);
+		if (result == true)
+		{
+			cout << "TRUE" << endl;
+		}else{
+			cout << "FALSE" << endl;
+		}
+		cout << endl << endl;
+
+		/* Iterator */
+		//Tworzymy iterowalny obiekt
+		vector<char> znaczki;
+		znaczki.push_back('A');
+		znaczki.push_back('B');
+		znaczki.push_back('C');
+
+		//Tworzymy iteratory
+		UpIterator<char> up_iterator(&znaczki);
+		DownIterator<char> down_iterator(&znaczki);
+
+		cout << "upTer: Item: " << up_iterator.CurrentItem() << endl;
+		up_iterator.Next();
+		cout << "upTer: Item: " << up_iterator.CurrentItem() << endl;
+		up_iterator.Next();
+
+		cout << "downTer: Item: " << down_iterator.CurrentItem() << endl;
+		down_iterator.Next();
+		cout << "downTer: Item: " << down_iterator.CurrentItem() << endl;
+		down_iterator.Next();
+
+		cout << endl << endl;
+
+		/* £añcuch zobowi¹zañ */
+		ChainElement1 chain_element1;
+		ChainElement2 chain_element2;
+		ChainElement3 chain_element3;
+
+		//Powiazanie 1:  1 -> 2 -> 3
+		chain_element1.SetSuccesor(&chain_element2);
+		chain_element2.SetSuccesor(&chain_element3);
+		chain_element1.handleRequest();
+
+		// Powiazanie 2: 1 -> 3 -> 2
+		chain_element1.SetSuccesor(&chain_element3);
+		chain_element3.SetSuccesor(&chain_element2);
+		chain_element1.handleRequest();
+
+		cout << endl << endl;
+
+		/* Mediator		 */
+		// ! APP te¿ jest klega dla mediatora! - to my tutaj wywolujemy operacje
+
+		Mediator_Colegue1 colegue1;
+		Mediator_Colegue2 colegue2;
+		Mediator_Colegue3 colegue3;
+
+		Mediator_AbstractCollegue* col1 = &colegue1;
+		Mediator_AbstractCollegue* col2 = &colegue2;
+		Mediator_AbstractCollegue* col3 = &colegue3;
+
+		Mediator_ConcreteMediator mediator(col1, col2, col3);
+		mediator.method();
+		cout << endl << endl;
+
+		/* Metoda szablonowa */
+		TM_Concrete1 tm1;
+		TM_Concrete2 tm2;
+
+		tm1.templateMethod1();
+		tm1.templateMethod_handler();
+		tm1.specificMethod1();
+		tm1.specificMethod2();
+
+		tm2.templateMethod1();
+		tm2.templateMethod_handler();
+		tm2.specificMethod1();
+		tm2.specificMethod2();
+
+		cout << endl << endl;
+
+		/* Obserwator */
+		ConcreteSubject sub;
+		AbstractSubject* s = &sub;
+
+		ConcreteObserver obs1(s);
+		ConcreteObserver2 obs2(s);
+
+		sub.Notify();		//Informujemy o zmianie tanu
+		obs1.methodUpdate();
+		obs2.methodUpdate();
+
+		cout << endl << endl;
+
+		/* Odwiedzajacy	 */
+		ElementA el_a;
+		ElementB el_b;
+		ConcreteVisiotrA vis_a;
+		ConcreteVisiotrB vis_b;
+
+		VisitorAbstract* abs_vis = &vis_a;
+		el_a.Accept(abs_vis);
+		el_b.Accept(abs_vis);
+
+		abs_vis = &vis_b;
+		el_a.Accept(abs_vis);
+		el_b.Accept(abs_vis);
+
+		cout << endl << endl;
+
+
+		/* Pami¹tka */
+		Originator originator;
+
+		originator.GetState();		// Sprawdz stan originatora
+		Memento* mem1 = originator.CreateMemento();	//Stworz pamiatke
+		originator.SetMemento(mem1);	//Zapamietaj stan
+		originator.SetState(2);		// Ustaw nowy stan originatora
+		originator.GetState();		// Sprawdz stan originatora
+		originator.GetMemento(mem1);	//Przywolaj zapamietany stan
+		originator.GetState();		// Sprawdz stan originatora
+
+		cout << endl << endl;
+
+
+		/* Polecenie		 */
+		CommandReceiver receiver;
+		CommandConcrete command(&receiver);		//Obiekt command jest poleceniem klasy receiver!
+		command.Execute();
+
+		cout << endl << endl;
+
+		/* Stan */
+		State1 stan1;
+		State2 stan2;
+		StateAbstract* stan = &stan2;
+		StateContex context(stan);
+
+		context.method();
+		stan = &stan1;
+		context.setState(stan);
+		context.method();
+
+		cout << endl << endl;
+
 
 	return 0;
 }
