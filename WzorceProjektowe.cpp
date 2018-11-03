@@ -34,6 +34,7 @@
 #include "Memento/Memento.h"
 #include "Command/Command.h"
 #include "State/State.h"
+#include "Strategy/Strategy.h"
 
 
 using namespace std;
@@ -324,6 +325,21 @@ int main() {
 		stan = &stan1;
 		context.setState(stan);
 		context.method();
+
+		cout << endl << endl;
+
+		/* Strategia */
+		ConcreteStrategy1 start1;
+		ConcreteStrategy2 strat2;
+		AbstractStrategy* strategia = &start1;
+
+		StrategyContext strateg_contex(strategia);	//Utworz kontekst i przypisz 1sza strategie
+		strateg_contex.CallStartegy(2,3);			//Wywolaj algorytm
+
+		strategia = &strat2;					// Przestaw strategie
+		strateg_contex.SetStrategy(strategia);
+		strateg_contex.CallStartegy(2,3);			//Wywolaj algorytm
+
 
 		cout << endl << endl;
 

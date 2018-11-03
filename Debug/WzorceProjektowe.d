@@ -7,7 +7,7 @@ WzorceProjektowe.o: ../WzorceProjektowe.cpp ../Singleton/Singleton.h \
  ../Iterator/Iterator.h ../ChainOfResponsibility/ChainOfResponsibility.h \
  ../Mediator/Mediator.h ../TemplateMethod/TemplateMethod.h \
  ../Observer/Observer.h ../Visitor/Visitor.h ../Memento/Memento.h \
- ../Command/Command.h ../State/State.h
+ ../Command/Command.h ../State/State.h ../Strategy/Strategy.h
 
 ../Singleton/Singleton.h:
 
@@ -52,3 +52,5 @@ WzorceProjektowe.o: ../WzorceProjektowe.cpp ../Singleton/Singleton.h \
 ../Command/Command.h:
 
 ../State/State.h:
+
+../Strategy/Strategy.h:
